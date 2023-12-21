@@ -1,83 +1,84 @@
 <template>
-    <header>
-      <h1>Web Chat</h1>
-      <span class="current-user">
-        Current ID: {{ userId }}
-      </span>
-    </header>
-    <main>
-      <section v-if="messageCount === 0">
-        <div class="empty">
-          <div>
-            <a href="https://vuejs.org/" target="_blank">
-              <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-            </a>
-          </div>
-          <p>
-            No message yet
-          </p>
+  <header>
+    <h1>Web Chat</h1>
+    <span class="current-user"> Current ID: {{ userId }} </span>
+  </header>
+  <main>
+    <section v-if="messageCount === 0">
+      <div class="empty">
+        <div>
+          <a href="https://vuejs.org/" target="_blank">
+            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+          </a>
         </div>
-      </section>
-      <section>
-        <div v-for="message, i in messages" :key="i">
-          <div class="message" :class="myMessageClass(message.userId)">
-            <author>{{ message.userId }}</author>
-            <p class="body">
-              {{ message.body }}
-            </p>
-            <time>{{ message.createdAt }}</time>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <div class="send">
-        <input type="text" placeholder="Your message" v-model="message">
-        <button @click="send()">Send</button>
+        <p>No message yet</p>
       </div>
-    </footer>
+    </section>
+    <section>
+      <div v-for="(message, i) in messages" :key="i">
+        <div class="message" :class="myMessageClass(message.userId)">
+          <author>{{ message.userId }}</author>
+          <p class="body">
+            {{ message.body }}
+          </p>
+          <time>{{ message.createdAt }}</time>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="send">
+      <input
+        type="text"
+        placeholder="Your message"
+        v-model="message"
+        @keyup.enter="send()"
+      />
+      <button @click="send()">Send</button>
+    </div>
+  </footer>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      message: '',
-      userId: ''
-    }
+      message: "",
+      userId: "",
+    };
   },
   created() {
-    this.getUserId()
+    this.getUserId();
   },
   computed: {
     messages() {
-      return this.$store.state.messages ?? []
+      return this.$store.state.messages ?? [];
     },
     messageCount() {
-      return this.$store.state.messages.length ?? 0
-    }
+      return this.$store.state.messages.length ?? 0;
+    },
   },
   methods: {
-    ...mapActions(['sendMessage']),
+    ...mapActions(["sendMessage"]),
     send() {
-      this.sendMessage({ body: this.message, userId: this.userId })
+      this.sendMessage({ body: this.message, userId: this.userId });
     },
     generateUserId() {
-      return Math.random().toString(36).substring(2, 15)
+      return Math.random().toString(36).substring(2, 15);
     },
     getUserId() {
       if (!window.name) {
         window.name = this.generateUserId();
       }
-      this.userId = window.name
+      this.userId = window.name;
     },
     myMessageClass(userId) {
-      return this.userId === userId ? 'my-message' : ''
-    }
-  }
-}
+      return this.userId === userId ? "my-message" : "";
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -106,7 +107,8 @@ export default {
   width: -moz-fit-content;
   width: fit-content;
   max-width: 66%;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
+    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
 }
 .message .body {
   margin: 0;
@@ -124,17 +126,20 @@ export default {
   bottom: 0;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 .footer .send {
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
-.footer input {
+.footer .send input {
   width: 100%;
-  padding: 0.5em;
+  padding: 0.5em 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5em;
+  font-size: 1rem;
 }
 .empty {
   text-align: center;
@@ -152,8 +157,8 @@ export default {
 
 author {
   font-size: 0.75rem;
-  font-weight: bold;
   margin: 0;
+  text-transform: uppercase;
 }
 
 time {
