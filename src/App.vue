@@ -15,7 +15,7 @@
       </div>
     </section>
     <section>
-      <div v-for="(message, i) in messages" :key="i">
+      <div v-for="(message, i) in last25Messages" :key="i">
         <div class="message" :class="myMessageClass(message.userId)">
           <author>{{ message.userId }}</author>
           <p class="body">
@@ -58,6 +58,10 @@ export default {
     },
     messageCount() {
       return this.$store.state.messages.length ?? 0;
+    },
+    last25Messages() {
+      const startIndex = Math.max(0, this.messageCount - 25);
+      return this.messages.slice(startIndex);
     },
   },
   methods: {
