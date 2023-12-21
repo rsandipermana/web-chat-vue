@@ -16,8 +16,8 @@
     </section>
     <section ref="messageSection" class="container">
       <div v-for="(message, i) in last25Messages" :key="i">
-        <div class="message" :class="myMessageClass(message.userId)">
-          <author>{{ message.userId }}</author>
+        <div class="message" :class="isMe(message.userId) ? 'my-message' : ''">
+          <author>{{ isMe(message.userId) ? "Me" : message.userId }}</author>
           <p class="body">
             {{ message.body }}
           </p>
@@ -82,8 +82,8 @@ export default {
       }
       this.userId = window.name;
     },
-    myMessageClass(userId) {
-      return this.userId === userId ? "my-message" : "";
+    isMe(userId) {
+      return this.userId === userId;
     },
     scrollToBottom() {
       this.$nextTick(() => {
