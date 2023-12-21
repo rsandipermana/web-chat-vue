@@ -92,4 +92,6 @@ export default createStore({
       commit("updateUser", user);
     },
   },
+  modules: {},
+  plugins: [storagePlugin],
 });
