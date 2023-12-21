@@ -173,13 +173,14 @@ export default {
 
 author {
   font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.5);
   margin: 0;
   text-transform: uppercase;
 }
 
 time {
   font-size: 0.75rem;
-  color: #8e8e8e;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .container {
