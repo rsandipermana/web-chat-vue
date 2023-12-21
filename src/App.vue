@@ -14,7 +14,7 @@
         <p>No message yet</p>
       </div>
     </section>
-    <section>
+    <section ref="messageSection" class="container">
       <div v-for="(message, i) in last25Messages" :key="i">
         <div class="message" :class="myMessageClass(message.userId)">
           <author>{{ message.userId }}</author>
@@ -52,6 +52,9 @@ export default {
   created() {
     this.getUserId();
   },
+  mounted() {
+    this.scrollToBottom();
+  },
   computed: {
     messages() {
       return this.$store.state.messages ?? [];
@@ -81,6 +84,14 @@ export default {
     },
     myMessageClass(userId) {
       return this.userId === userId ? "my-message" : "";
+    },
+    scrollToBottom() {
+      this.$nextTick(() => {
+        const messageSection = this.$refs.messageSection;
+        if (messageSection) {
+          messageSection.scrollTop = messageSection.scrollHeight;
+        }
+      });
     },
   },
 };
@@ -169,5 +180,9 @@ author {
 time {
   font-size: 0.75rem;
   color: #8e8e8e;
+}
+
+.container {
+  padding-bottom: 70px;
 }
 </style>
