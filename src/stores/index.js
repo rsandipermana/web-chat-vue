@@ -7,38 +7,8 @@ const storedState = localStorage.getItem("vuex-state");
 const initialState = storedState
   ? JSON.parse(storedState)
   : {
-      users: [
-        {
-          id: "1",
-          name: "John Doe",
-          email: "john@doe.com",
-          avatar: "https://i.pravatar.cc/150?img=1",
-          status: "online",
-          isOnline: true,
-          lastSeen: "2021-08-01T12:00:00Z",
-          isTyping: true,
-        },
-      ],
-      messages: [
-        {
-          id: "1",
-          userId: "1",
-          body: "Hello",
-          createdAt: "2021-08-01T12:00:00Z",
-        },
-        {
-          id: "2",
-          userId: "1",
-          body: "How are you?",
-          createdAt: "2021-08-01T12:01:00Z",
-        },
-        {
-          id: "3",
-          userId: "2",
-          body: "Hi, I am fine, thanks",
-          createdAt: "2021-08-01T12:02:00Z",
-        },
-      ],
+      users: [],
+      messages: [],
       currentUser: null,
     };
 
