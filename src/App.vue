@@ -64,6 +64,7 @@ export default {
     ...mapActions(["sendMessage"]),
     send() {
       this.sendMessage({ body: this.message, userId: this.userId });
+      this.message = "";
     },
     generateUserId() {
       return Math.random().toString(36).substring(2, 15);
