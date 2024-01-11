@@ -50,10 +50,6 @@ export default createStore({
         createdAt: new Date().toISOString(),
       };
       commit("addMessage", messageWithId);
-      const user = state.users.find((user) => user.id === message.userId);
-      if (!user.isOnline) {
-        commit("updateUser", { ...user, isOnline: true });
-      }
     },
     addUser({ commit }, user) {
       commit("addUser", user);

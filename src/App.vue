@@ -34,7 +34,7 @@
         v-model="message"
         @keyup.enter="send()"
       />
-      <button @click="send()">Send</button>
+      <button @click="send()" :disabled="!message">Send</button>
     </div>
   </footer>
 </template>
@@ -69,8 +69,9 @@ export default {
   },
   methods: {
     ...mapActions(["sendMessage"]),
-    send() {
-      this.sendMessage({ body: this.message, userId: this.userId });
+    async send() {
+      if (!this.message) return;
+      await this.sendMessage({ body: this.message, userId: this.userId });
       this.message = "";
     },
     generateUserId() {
